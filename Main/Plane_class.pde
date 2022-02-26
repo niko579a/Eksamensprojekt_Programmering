@@ -5,7 +5,7 @@ class Plane extends Movement{
   
   boolean hasBeenThere = false;
   
-  float dropSpot;
+  Missil bombe;
   
   Plane(){
     w = 180;
@@ -19,18 +19,32 @@ class Plane extends Movement{
     
     moveSpeed = 10;
     
-    pickDropPlace();
+    bombe = new Missil(); 
+    bombe.position.y = position.y;
   }
   
   void display(){
     image(fly, position.x, position.y, w, h);
+    if(bombe.droped == true){
+      bombe.display();
+    }
   }
   
   void update(){
     if(pickSide == 0){
-      position.x += moveSpeed; 
+      position.x += moveSpeed;
+      if(position.x >= bombe.dropSpot){
+        bombe.droped = true;
+      }
     }else {
       position.x -= moveSpeed; 
+      if(position.x <= bombe.dropSpot){
+        bombe.droped = true;
+      }
+    }
+    
+    if(bombe.droped == true){
+      bombe.update();
     }
   }
   
@@ -80,9 +94,5 @@ class Plane extends Movement{
         return false;
       }
     }
-  }
-  
-  void pickDropPlace(){
-    dropSpot = random(25, width - 25);
   }
 }
