@@ -1,7 +1,7 @@
 class Soldier extends Movement{
   float jumpSpeed = 8;
   float currentJumpHeight = 0; //jumpHeight
-  float jumpMaxHeight = 200;
+  float jumpMaxHeight = 175;
   
   PImage soldat;
    
@@ -11,8 +11,8 @@ class Soldier extends Movement{
   boolean reachedMaxJumpH = false; //hasJumped
   
   Soldier(float x_, float y_){
-    w = 10;
-    h = 10;
+    w = 35;
+    h = 100;
 
     position.x = x_;
     position.y = y_;
@@ -24,7 +24,7 @@ class Soldier extends Movement{
   }
   
   void display(){
-    image(soldat, position.x, position.y, 125, 200);
+    image(soldat, position.x, position.y, w, h);
   }
   
   void update(PVector gravity){
