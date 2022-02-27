@@ -17,7 +17,7 @@ class Plane extends Movement{
       spawnRight();
     }
     
-    moveSpeed = 10;
+    moveSpeed = random(8, 15);
     
     bombe = new Missil(); 
     bombe.position.y = position.y;
@@ -30,7 +30,7 @@ class Plane extends Movement{
     }
   }
   
-  void update(){
+  void update(Soldier player){
     if(pickSide == 0){
       position.x += moveSpeed;
       if(position.x >= bombe.dropSpot){
@@ -44,7 +44,7 @@ class Plane extends Movement{
     }
     
     if(bombe.droped == true){
-      bombe.update();
+      bombe.update(player);
     }
   }
   

@@ -19,9 +19,9 @@ void keyPressed(){
 }
 
 void keyReleased(){
-  if(key == ' ' && verden.player.isMoving == true){
-    verden.player.isMoving = true;
-  }else{
-    verden.player.isMoving = false;
-  }
+  verden.gameKeys();
+}
+
+void mousePressed() {
+  verden.gameMouse();
 }

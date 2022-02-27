@@ -10,6 +10,8 @@ class Soldier extends Movement{
   boolean isOnPlatform = true;
   boolean reachedMaxJumpH = false; //hasJumped
   
+  int life = 5;
+  
   Soldier(float x_, float y_){
     w = 35;
     h = 100;
@@ -25,6 +27,7 @@ class Soldier extends Movement{
   
   void display(){
     image(soldat, position.x, position.y, w, h);
+    //circle(position.x + w/2, position.y + h - 20, 10);
   }
   
   void update(PVector gravity){
