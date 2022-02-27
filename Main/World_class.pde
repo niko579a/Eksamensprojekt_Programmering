@@ -3,6 +3,7 @@ class World{
   ArrayList<Plane> allPlanes = new ArrayList<Plane>();
   ArrayList<Button> allButtons = new ArrayList<Button>();
   
+  //De tre arrays er koordinater og længden af platformene. 
   float[] platformXPunkt = {500, 350, 100, 700, 860, 200, 580, 760, 1000, 1140, 1100, 1250};
   float[] platformYPunkt = {400, 520, 500, 360, 450, 370, 460, 520, 380, 450, 500, 350};
   float[] platformLength = {100, 140, 80, 120, 80, 150, 70, 120, 100, 70, 150, 60};
@@ -11,14 +12,15 @@ class World{
   
   PVector gravity = new PVector(0, 4.82);
   
-  int shownAidKasser = 0;
+  int shownAidKasser = 0; //Det er hvor mange førstehjælpskasser, der må være på skærmen
   int point = 0; 
   
-  boolean isGameOver = false;
+  //De to booleans bestemmer om menuerne skal vises.
+  boolean isGameOver = false; 
   boolean isMenuOn = true;
   
   Soldier player;
-  Platform groundPlatform; //den usynlige linje i bunden 
+  Platform groundPlatform; //Platformen i jorden. 
   
   Button startGame;
   Button closeGame;
@@ -28,10 +30,11 @@ class World{
     createWorld();
   }
   
+  //Denne metode er en slags konstruktør.
   void createWorld(){
-    startGame = new Button(width/2, 400, 200, 50, "Start spil");
-    closeGame = new Button(width/2, 600, 200, 50, "Sluk spil");
-    returnToMenu = new Button(width/2, height/2 + 100, 200, 50, "Gå til hovedmenuen");
+    startGame = new Button(width/2, 400, 250, 80, "Start spil");
+    closeGame = new Button(width/2, 600, 250, 80, "Sluk spil");
+    returnToMenu = new Button(width/2, height/2 + 100, 300, 80, "Gå til hovedmenuen");
     
     allButtons.add(startGame);
     allButtons.add(closeGame);
@@ -45,9 +48,11 @@ class World{
     baggrund = loadImage("world.png");
     
     groundPlatform = new Platform(-100, 650, 1600);
+    groundPlatform.h = 100;
     groundPlatform.showPlatform = false; 
     allPlatforms.add(groundPlatform); //tilføjer linjen i bunden til arraylisten
     
+    //Dette for loop er til at tegne alle platformene.
     for(int i = 0; i < platformXPunkt.length; i++){
       float platformX = platformXPunkt[i];
       float platformY = platformYPunkt[i];
@@ -105,6 +110,7 @@ class World{
         isGameOver = true;
       }
       
+      //Her laves en masse checks med platformene.
       for(int i = 0; i < allPlatforms.size(); i++){
         Platform currentPlatform = allPlatforms.get(i);
         currentPlatform.isSoldierOnPlatform(player);
@@ -112,16 +118,18 @@ class World{
         currentPlatform.aidKasse.ifCollected(player, this);
       }
       
+      //Her opdateres flyene og sletter dem når de er ude for skærmen.
       for(int i = 0; i < allPlanes.size(); i++){
         Plane currentPlane = allPlanes.get(i);
         currentPlane.update(player);
         
-        if(currentPlane.hasBeenThere == true && currentPlane.checkIfGone() == true){
+        if(currentPlane.checkIfGone() == true && currentPlane.bombe.checkIfUnderGround() == true){
           allPlanes.remove(i);
         }
       }
       
-      if(frameCount % 120 == 0){
+      //Her laves et nyt fly hvert halve skeund.
+      if(frameCount % 30 == 0){
         Plane fly = new Plane();
         allPlanes.add(fly);
       }
@@ -135,6 +143,7 @@ class World{
     }
   }
   
+  //Denne metode placerer førstehjælpskasserne.
   void spawnAidKasser(){
     if(frameCount % 600 == 0){
       if(shownAidKasser < 1){
@@ -147,6 +156,8 @@ class World{
     }
   }
   
+  
+  //Denne metode fjerne førstehjælpskasserne efter noget tid. 
   void removeAidKasser(){
     if(frameCount % 450 == 0){
       for(int i = 0; i < allPlatforms.size(); i++){
@@ -187,6 +198,7 @@ class World{
     textAlign(LEFT);
   }
   
+  //Det styrer spillets taster.
   void gameKeys(){
     if(key == ' ' && verden.player.isMoving == true){
       verden.player.isMoving = true;
@@ -195,6 +207,7 @@ class World{
     }
   }
   
+  //Det styrrer spillets kliks med mussen.
   void gameMouse(){
     rectMode(CORNER);
     

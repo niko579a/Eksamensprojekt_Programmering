@@ -26,8 +26,8 @@ class Button{
       
       textAlign(CENTER);
       fill(255);
-      textSize(18);
-      text(text, x, y);
+      textSize(25);
+      text(text, x, y + 8);
       textAlign(LEFT);
     }
   }

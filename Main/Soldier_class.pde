@@ -1,6 +1,6 @@
 class Soldier extends Movement{
   float jumpSpeed = 8;
-  float currentJumpHeight = 0; //jumpHeight
+  float currentJumpHeight = 0; 
   float jumpMaxHeight = 175;
   
   PImage soldat;
@@ -8,7 +8,7 @@ class Soldier extends Movement{
   boolean isMoving = false; //tjekker om spilleren bevæger sig
   boolean isMovingLeft = false; //hvis false bevæger man sig til højre,tjekker om man går til venstre. 
   boolean isOnPlatform = true;
-  boolean reachedMaxJumpH = false; //hasJumped
+  boolean reachedMaxJumpH = false;
   
   int life = 5;
   
@@ -27,7 +27,6 @@ class Soldier extends Movement{
   
   void display(){
     image(soldat, position.x, position.y, w, h);
-    //circle(position.x + w/2, position.y + h - 20, 10);
   }
   
   void update(PVector gravity){

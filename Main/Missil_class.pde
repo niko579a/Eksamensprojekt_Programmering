@@ -69,4 +69,12 @@ class Missil extends Movement{
     player.life--;
     display = false;
   }
+  
+  boolean checkIfUnderGround(){
+    if(position.y >= height){
+      return true;
+    }else {
+      return false;
+    }
+  }
 }
